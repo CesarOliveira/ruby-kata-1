@@ -3,8 +3,14 @@
 module Echocat
   class << self
     def run
+      setup
       clear
       welcome
+    end
+
+    def setup
+      @authors, @books, @magazines = ImportData.import_all
+      binding.pry
     end
 
     def welcome

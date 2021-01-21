@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+require 'pry'
+require_relative '../lib/import_data.rb'
 require_relative '../lib/echocat.rb'
 require_relative '../models/models.rb'
 
