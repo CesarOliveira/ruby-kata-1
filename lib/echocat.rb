@@ -49,7 +49,7 @@ module Echocat
         puts 'ok, do 2'
       when '3'
         puts 'ok, do 3'
-      when '4'
+      when '0'
         leave
       else
         clear
