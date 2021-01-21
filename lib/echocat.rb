@@ -37,6 +37,7 @@ module Echocat
         '1 - Print out all books and magazines',
         '2 - Find a book or magazine by its isbn',
         '3 - Find all books and magazines by their authors’ email',
+        '4 - Print out all books and magazines with all their details sorted by title',
         '0 - Exit'
       ]
       puts 'Select one of these options:'
@@ -53,7 +54,9 @@ module Echocat
       when '2'
         find_by_isbn
       when '3'
-        puts 'ok, do 3'
+        find_by_author_email
+      when '4'
+        puts 'ok, do 4'
       when '0'
         leave
       else
@@ -75,16 +78,16 @@ module Echocat
     def find_by_isbn
       puts 'Type the ISNB you wanna find a book or Magazine'
 
-      @isbn = $stdin.gets.chomp
+      isbn = $stdin.gets.chomp
 
-      @books_founded = @books.select {|book| book.isbn == @isbn}
-      @magazines_founded = @magazines.select {|magazine| magazine.isbn == @isbn}
+      @books_founded = @books.select {|book| book.isbn == isbn}
+      @magazines_founded = @magazines.select {|magazine| magazine.isbn == isbn}
 
       puts ''
       if @books_founded.empty?
         puts 'No books were founded for this ISBN'
       else
-        puts "Here the books founded for the ISBN: #{@isbn}"
+        puts "Here the books founded for the ISBN: #{isbn}"
         puts @books_founded.map(&:title)  
       end
 
@@ -92,11 +95,39 @@ module Echocat
       if @magazines_founded.empty?
         puts 'No Magazines were founded for this ISBN'
       else
-        puts "Here the Magazines founded for the ISBN: #{@isbn}"
+        puts "Here the Magazines founded for the ISBN: #{isbn}"
         puts @magazines_founded.map(&:title)  
       end
 
       options
     end
+
+
+    def find_by_author_email
+      puts 'Type the Author Email you wanna find a book or Magazine'
+
+      author_email = $stdin.gets.chomp
+
+      @books_founded = @books.select {|book| book.authors.include? author_email}
+      @magazines_founded = @magazines.select {|magazine| magazine.authors.include? author_email}
+
+      puts ''
+      if @books_founded.empty?
+        puts 'No books were founded for this Author Email'
+      else
+        puts "Here the books founded for the Author Email: #{author_email}"
+        puts @books_founded.map(&:title)  
+      end
+
+      puts ''
+      if @magazines_founded.empty?
+        puts 'No Magazines were founded for this Author Email'
+      else
+        puts "Here the Magazines founded for the Author Email: #{author_email}"
+        puts @magazines_founded.map(&:title)  
+      end
+
+      options
+    end    
   end
 end
