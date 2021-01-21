@@ -10,15 +10,9 @@ module ImportData
         all_authors = []
         authors = File.join(File.expand_path('../data', __dir__), 'authors.csv')
         CSV.foreach(authors, col_sep: ';', headers: true) do |author|
-          params = {
-            email: author[0],
-            first_name: author['firstName'],
-            last_name: author['lastName']
-          }
-
-          all_authors << Author.new(params)
+          all_authors << Author.new(author[0], author['firstName'], author['lastName'])
         end
-        
+
         all_authors
       end
 
@@ -26,16 +20,9 @@ module ImportData
         all_books = []
         books = File.join(File.expand_path('../data', __dir__), 'books.csv')
         CSV.foreach(books, col_sep: ';', headers: true) do |book|
-          params = {
-            title: book[0],
-            description: book['description'],
-            authors: book['authors'],
-            isbn: book['isbn']
-          }
-
-          all_books << Book.new(params)
+          all_books << Book.new(book[0], book['description'], book['authors'], book['isbn'])
         end
-        
+
         all_books
       end
 
@@ -43,16 +30,9 @@ module ImportData
         all_magazines = []
         magazines = File.join(File.expand_path('../data', __dir__), 'magazines.csv')
         CSV.foreach(magazines, col_sep: ';', headers: true) do |magazine|
-          params = {
-            title: magazine[0],
-            published_at: magazine['publishedAt'],
-            authors: magazine['authors'],
-            isbn: magazine['isbn']
-          }
-
-          all_magazines << Magazine.new(params)
+          all_magazines << Magazine.new(magazine[0], magazine['publishedAt'], magazine['authors'], magazine['isbn'])
         end
-        
+
         all_magazines
       end
   end

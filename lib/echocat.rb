@@ -10,7 +10,6 @@ module Echocat
 
     def setup
       @authors, @books, @magazines = ImportData.import_all
-      binding.pry
     end
 
     def welcome
@@ -52,7 +51,7 @@ module Echocat
       when '1'
         puts 'ok, do 1'
       when '2'
-        puts 'ok, do 2'
+        find_by_isbn
       when '3'
         puts 'ok, do 3'
       when '0'
@@ -71,6 +70,33 @@ module Echocat
 
     def leave
       puts 'Thanks for using the Cool Library System.'
+    end
+
+    def find_by_isbn
+      puts 'Type the ISNB you wanna find a book or Magazine'
+
+      @isbn = $stdin.gets.chomp
+
+      @books_founded = @books.select {|book| book.isbn == @isbn}
+      @magazines_founded = @magazines.select {|magazine| magazine.isbn == @isbn}
+
+      puts ''
+      if @books_founded.empty?
+        puts 'No books were founded for this ISBN'
+      else
+        puts "Here the books founded for the ISBN: #{@isbn}"
+        puts @books_founded.map(&:title)  
+      end
+
+      puts ''
+      if @magazines_founded.empty?
+        puts 'No Magazines were founded for this ISBN'
+      else
+        puts "Here the Magazines founded for the ISBN: #{@isbn}"
+        puts @magazines_founded.map(&:title)  
+      end
+
+      options
     end
   end
 end
